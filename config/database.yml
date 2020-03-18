@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= Rails.application.credentials.dig(:database, :username, Rails.env.to_sym) %>
+  password: <%= Rails.application.credentials.dig(:database, :password, Rails.env.to_sym) %>
+
+development:
+  <<: *default
+  database: gse_development
+
+test:
+  <<: *default
+  database: gse_test
+
+production:
+  <<: *default
+  database: <%= Rails.application.credentials.dig(:database, :name, Rails.env.to_sym) %>
