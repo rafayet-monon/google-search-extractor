@@ -1,3 +1,13 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.home{
+  margin-top: 20px;
+  .btn-upload{
+    background-color: #29c68c;
+  }
+  .daterange-form{
+    float: right;
+    .daterange-label{
+      margin-right: 5px;
+    }
+    .daterange-input{}
+  }
+}

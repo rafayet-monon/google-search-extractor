@@ -8,10 +8,7 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-import"jquery"
 global.$ = require("jquery");
-import 'popper.js'
 import  'bootstrap';
 import 'bootstrap-daterangepicker'
 import './custom'
-import "../stylesheets/application"
