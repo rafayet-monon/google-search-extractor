@@ -43,3 +43,4 @@
 
 # Ignore pronto configuration files
 .pronto.yml
+file_uploads/

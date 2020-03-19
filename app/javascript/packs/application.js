@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 global.$ = require("jquery");
+global.toastr = require("toastr");
 import  'bootstrap';
 import 'bootstrap-daterangepicker'
 import './custom'
