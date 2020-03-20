@@ -1,7 +1,6 @@
-<form action="" class="daterange-form">
+<%= form_tag root_path, method: :get, class: 'daterange-form' do %>
   <div class="form-group form-inline">
-    <label for="daterange" class="daterange-label">Report By Date</label>
-    <input type="text" class="form-control daterange-input"
-           name="daterange">
+    <%= text_field_tag :daterange, params[:daterange], class: 'form-control daterange-input mr-1' %>
+    <%= submit_tag "Search", class: 'btn btn-success btn-upload' %>
   </div>
-</form>
+<% end %>
