@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_091659) do
+ActiveRecord::Schema.define(version: 2020_03_20_154428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,11 +28,10 @@ ActiveRecord::Schema.define(version: 2020_03_19_091659) do
   create_table "search_results", force: :cascade do |t|
     t.bigint "search_file_id", null: false
     t.string "key"
-    t.integer "ad_words"
-    t.integer "links"
-    t.string "results"
+    t.integer "ad_words", default: 0
+    t.integer "links", default: 0
+    t.string "results", default: "N/A"
     t.text "html"
-    t.string "response_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["key"], name: "index_search_results_on_key"
