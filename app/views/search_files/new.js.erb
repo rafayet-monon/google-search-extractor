@@ -1,0 +1,20 @@
+$('#modal-window').modal('show').find('.modal-content').html("<%= escape_javascript(render 'search_files/form').html_safe %>");
+
+$("#search_file_file").change(function () {
+    const file = this.files[0];
+    const  fileType = file['type'];
+    if (fileType != 'text/csv') {
+        toastr.error("Only CSV format is allowed");
+        $(this).val('');
+    }
+});
+
+$('#upload-csv-form').on('submit', function (e) {
+    var file = $("#search_file_file").val();
+
+    if (file === '') {
+        e.preventDefault();
+        toastr.error("Please select a file to upload!");
+        return false;
+    }
+});
