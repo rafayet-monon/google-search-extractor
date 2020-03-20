@@ -1,0 +1,6 @@
+<%= form_tag root_path, method: :get, class: 'daterange-form' do %>
+  <div class="form-group form-inline">
+    <%= text_field_tag :daterange, params[:daterange], class: 'form-control daterange-input mr-1' %>
+    <%= submit_tag "Search", class: 'btn btn-success btn-upload' %>
+  </div>
+<% end %>

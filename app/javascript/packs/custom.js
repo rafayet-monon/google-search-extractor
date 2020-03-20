@@ -11,3 +11,12 @@ $(document).on("turbolinks:load", function(){
 $(document).on('ready page:load', function(event) {
     $(".loader").hide();
 });
+
+$(document).on('turbolinks:load', function(event) {
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left',
+        locale: {
+            format: 'YYYY/MM/DD'
+        }
+    });
+});

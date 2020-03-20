@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Search Files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>File</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @search_files.each do |search_file| %>
+      <tr>
+        <td><%= search_file.user_id %></td>
+        <td><%= search_file.file %></td>
+        <td><%= search_file.status %></td>
+        <td><%= link_to 'Show', search_file %></td>
+        <td><%= link_to 'Edit', edit_search_file_path(search_file) %></td>
+        <td><%= link_to 'Destroy', search_file, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Search File', new_search_file_path %>

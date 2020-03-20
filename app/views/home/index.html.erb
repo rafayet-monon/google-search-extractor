@@ -1,30 +1,12 @@
 <div class="container home">
   <div class="row">
     <div class="col-md-6">
-      <button type="button" class="btn btn-success btn-upload">Upload CSV</button>
+      <%= render 'home/upload_button' %>
     </div>
 
     <div class="col-md-6">
-      <form action="" class="daterange-form">
-        <div class="form-group form-inline">
-          <label for="daterange" class="daterange-label">Report By Date</label>
-          <input type="text" class="form-control daterange-input"
-                 name="daterange">
-        </div>
-      </form>
+      <%= render 'home/daterange_form' %>
     </div>
-
   </div>
-
   <%= render 'home/table' %>
-
 </div>
-<script>
-    $(function () {
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'left'
-        }, function (start, end, label) {
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        });
-    });
-</script>

@@ -11,9 +11,11 @@
   </head>
 
   <body>
+  <%= toastr_flash %>
   <%= render 'shared/loader' %>
   <!-- Header -->
   <%= render 'shared/header' %>
   <%= yield %>
+  <%= render 'shared/modal' %>
   </body>
 </html>

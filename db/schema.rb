@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_070207) do
+ActiveRecord::Schema.define(version: 2020_03_20_154428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "search_files", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "file_name"
+    t.string "file_path"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_search_files_on_user_id"
+  end
+
+  create_table "search_results", force: :cascade do |t|
+    t.bigint "search_file_id", null: false
+    t.string "key"
+    t.integer "ad_words", default: 0
+    t.integer "links", default: 0
+    t.string "results", default: "N/A"
+    t.text "html"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["key"], name: "index_search_results_on_key"
+    t.index ["search_file_id"], name: "index_search_results_on_search_file_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -28,4 +51,6 @@ ActiveRecord::Schema.define(version: 2020_03_18_070207) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "search_files", "users"
+  add_foreign_key "search_results", "search_files"
 end
