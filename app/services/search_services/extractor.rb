@@ -14,6 +14,7 @@ module SearchServices
       @results     = search_stats
       @ad_words    = ad_words_count
       @html        = html_source
+      @page_source.quit
 
       self
     end
@@ -21,7 +22,8 @@ module SearchServices
     private
 
     def search_google
-      driver = Selenium::WebDriver.for :firefox
+      options = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
+      driver  = Selenium::WebDriver.for(:firefox, options: options)
       driver.get "https://www.google.com/search?q=#{@keyword}"
 
       driver
