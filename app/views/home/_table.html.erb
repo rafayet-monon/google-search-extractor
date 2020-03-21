@@ -2,11 +2,14 @@
   <div class="table-title text-center">
     <h2>Search <b>Details</b></h2>
   </div>
-  <%= table_for @search_results, %w(Keywords Ads Links Results HTML), { class: 'table table-bordered' } do |result| %>
+  <%= table_for @data, %w(Keywords Ads Links Results HTML), { class: 'table table-bordered' } do |result| %>
     <%= column result.key %>
     <%= column result.ad_words %>
     <%= column result.links %>
     <%= column result.results %>
-    <%= column link_to('View', root_path) %>
+    <%= column link_to('View', search_result_path(result.id), target: '_blank') %>
   <% end %>
+  <div class="clearfix">
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </div>
 </div>

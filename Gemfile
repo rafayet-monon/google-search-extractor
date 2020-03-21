@@ -9,6 +9,8 @@ gem 'puma', '~> 4.1' # Use Puma as the app server
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'sidekiq' # background processing for Ruby
 gem 'turbolinks', '~> 5' # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'foreman' # Manage Procfile-based applications
+gem 'pagy', '~> 3.5' # Pagination gem
 
 # Authentications
 gem 'devise' # Authentication solution for Rails with Warden
