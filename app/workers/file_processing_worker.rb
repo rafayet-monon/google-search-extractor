@@ -1,5 +1,5 @@
 class FileProcessingWorker
-  require 'CSV'
+  require 'csv'
   include Sidekiq::Worker
 
   def perform(search_file_id)
