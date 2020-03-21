@@ -8,7 +8,7 @@ class SearchFile < ApplicationRecord
   private
 
   def start_search_worker
-    if ENV['HEROKU_DEPLOYED'].present?
+    if Rails.application.credentials.dig(:heroku, Rails.env.to_sym).present?
       FileProcessingWorker.new.perform(id)
     else
       FileProcessingWorker.perform_async(id)
