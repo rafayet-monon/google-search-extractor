@@ -17,6 +17,8 @@ gem 'devise' # Authentication solution for Rails with Warden
 gem 'sass-rails', '>= 6' # Use SCSS for stylesheets
 gem 'webpacker', '~> 4.0' # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 
+gem 'selenium-webdriver' # for web page scraping
+
 group :development do
   gem 'better_errors' # Better error page for Rails and other Rack apps
   gem 'spring' # Spring speeds up development by keeping your application running in the background.
