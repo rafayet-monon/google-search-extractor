@@ -8,6 +8,10 @@ class SearchFile < ApplicationRecord
   private
 
   def start_search_worker
-    FileProcessingWorker.perform_async(id)
+    if ENV['HEROKU_DEPLOYED'].present?
+      FileProcessingWorker.new.perform(id)
+    else
+      FileProcessingWorker.perform_async(id)
+    end
   end
 end
