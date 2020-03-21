@@ -315,6 +315,7 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   sassc-rails
+  selenium-webdriver
   shoulda-matchers
   sidekiq
   simplecov
