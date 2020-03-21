@@ -32,19 +32,19 @@ module SearchServices
     def count_links
       @page_source.find_elements(:tag_name, 'a').count
     rescue element_not_found
-      nil
+      zero
     end
 
     def search_stats
       @page_source.find_element(:id, 'result-stats')&.text&.strip
     rescue element_not_found
-      nil
+      zero
     end
 
     def ad_words_count
       @page_source.find_element(:class, 'ads-ad')&.find_elements(:tag_name, 'li')&.count
     rescue element_not_found
-      nil
+      zero
     end
 
     def html_source
@@ -53,6 +53,10 @@ module SearchServices
 
     def element_not_found
       Selenium::WebDriver::Error::NoSuchElementError
+    end
+
+    def zero
+      0
     end
   end
 end

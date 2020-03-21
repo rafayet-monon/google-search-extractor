@@ -2,14 +2,24 @@ class FileProcessingWorker
   require 'csv'
   include Sidekiq::Worker
 
-  def perform(search_file_id)
-    search_file = SearchFile.find(search_file_id)
-    search_file.running!
-    file = Rails.root.to_s + search_file.file_path.to_s
-    keywords = parse_file(file)
-    keywords.each { |keyword| SearchServices::Initializer.new(keyword, search_file).perform }
+  sidekiq_retries_exhausted do |msg|
+    search_file_id = msg['args'].first
+    SearchFile.find(search_file_id).failed!
+  end
 
-    search_file.completed!
+  def perform(search_file_id)
+    begin
+      @search_file = SearchFile.find(search_file_id)
+      @search_file.running!
+      keywords = parse_file(file)
+      keywords.each { |keyword| SearchServices::Initializer.new(keyword, @search_file).perform }
+
+      @search_file.completed!
+    rescue CSV::MalformedCSVError
+      @search_file.failed!
+
+      true
+    end
   end
 
   private
@@ -20,5 +30,9 @@ class FileProcessingWorker
     csv.each { |row| keywords_rows << row }
 
     keywords_rows.flatten.compact
+  end
+
+  def file
+    Rails.root.to_s + @search_file.file_path.to_s
   end
 end
