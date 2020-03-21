@@ -1,13 +1,4 @@
 class SearchFilesController < ApplicationController
-  before_action :set_search_file, only: %i[show destroy]
-
-  # GET /search_files
-  def index
-    @search_files = SearchFile.all
-  end
-
-  # GET /search_files/1
-  def show; end
 
   # GET /search_files/new
   def new
@@ -29,18 +20,7 @@ class SearchFilesController < ApplicationController
     end
   end
 
-  # DELETE /search_files/1
-  def destroy
-    @search_file.destroy
-    redirect_to search_files_url, notice: 'Search file was successfully destroyed.'
-  end
-
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_search_file
-    @search_file = SearchFile.find(params[:id])
-  end
 
   # Only allow a trusted parameter "white list" through.
   def search_file_params

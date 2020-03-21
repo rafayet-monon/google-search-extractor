@@ -1,18 +1,12 @@
 class SearchResultsController < ApplicationController
-  before_action :set_search_result, only: %i[show destroy]
-
-  # GET /search_results
-  def index
-    @search_results = SearchResult.all
-  end
+  before_action :set_search_result, only: :show
 
   # GET /search_results/1
-  def show; end
-
-  # DELETE /search_results/1
-  def destroy
-    @search_result.destroy
-    redirect_to search_results_url, notice: 'Search result was successfully destroyed.'
+  def show
+    @html = @search_result.html
+    respond_to do |format|
+      format.html { render :layout => false } # your-action.html.erb
+    end
   end
 
   private
