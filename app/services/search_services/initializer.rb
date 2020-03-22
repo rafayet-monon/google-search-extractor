@@ -5,11 +5,15 @@ module SearchServices
       @file    = file
     end
 
+    def self.perform(keyword, file)
+      new(keyword, file).perform
+    end
+
     def perform
       return if search_executed
 
       sleep rand(5..15)
-      result = SearchServices::Extractor.new(@keyword).perform
+      result = SearchServices::GoogleExtractor.perform(@keyword)
 
       save_result(result)
     end

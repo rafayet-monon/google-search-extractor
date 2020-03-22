@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   include Pagy::Backend
 
   def index
-    results      = ReportService.new(params, current_user).perform
+    results      = ReportService.perform(params, current_user)
     @pagy, @data = pagy(results.data)
 
     respond_to do |format|

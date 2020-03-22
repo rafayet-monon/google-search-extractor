@@ -9,15 +9,19 @@ class ReportService
     @user   = user
   end
 
+  def self.perform(params, user)
+    new(params, user).perform
+  end
+
   def perform
     begin
       @data = SearchResult.joins(search_file: :user)
-                .where('users.id = ?', @user.id)
-                .select(:id, :key, :links, :ad_words, :results)
-                .order('key')
+                          .where('users.id = ?', @user.id)
+                          .select(:id, :key, :links, :ad_words, :results)
+                          .order('key')
       filter_by_date if @params[:daterange].present?
-    rescue InvalidDateRange => e
-      @error = 'Select a valid daterange.'
+    rescue InvalidDateRange
+      @error = 'Select a valid daterange!'
     end
 
     self
@@ -27,8 +31,8 @@ class ReportService
 
   def filter_by_date
     start_date, end_date = parse_daterange
-    @data                = @data.where('search_files.created_at BETWEEN ? AND ?', start_date, end_date)
 
+    @data = @data.where('search_files.created_at BETWEEN ? AND ?', start_date, end_date)
   end
 
   def parse_daterange
@@ -40,6 +44,8 @@ class ReportService
   end
 
   def valid_date?(string)
+    raise InvalidDateRange if %r{(\d{4}/\d{2}/\d{2})}.match(string).blank?
+
     Date.strptime(string, '%Y/%m/%d')
   rescue ArgumentError
     raise InvalidDateRange

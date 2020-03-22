@@ -5,7 +5,11 @@ module FileServices
       @path = upload_path
     end
 
-    def upload
+    def self.perform(file, upload_path)
+      new(file, upload_path).perform
+    end
+
+    def perform
       upload_file
     end
 

@@ -9,7 +9,7 @@ class SearchFilesController < ApplicationController
 
   # POST /search_files
   def create
-    @search_file = FileServices::Initializer.new(search_file_params, current_user).perform
+    @search_file = FileServices::Initializer.perform(search_file_params, current_user)
 
     respond_to do |format|
       if @search_file.error.blank?

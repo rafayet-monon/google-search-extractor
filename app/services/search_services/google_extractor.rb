@@ -1,11 +1,15 @@
 module SearchServices
-  class Extractor
+  class GoogleExtractor
     require 'selenium-webdriver'
 
     attr_reader :ad_words, :links, :results, :html
 
     def initialize(keyword)
       @keyword = keyword
+    end
+
+    def self.perform(keyword)
+      new(keyword).perform
     end
 
     def perform

@@ -12,7 +12,7 @@ class FileProcessingWorker
       @search_file = SearchFile.find(search_file_id)
       @search_file.running!
       keywords = parse_file(file)
-      keywords.each { |keyword| SearchServices::Initializer.new(keyword, @search_file).perform }
+      keywords.each { |keyword| SearchServices::Initializer.perform(keyword, @search_file) }
 
       @search_file.completed!
     rescue CSV::MalformedCSVError

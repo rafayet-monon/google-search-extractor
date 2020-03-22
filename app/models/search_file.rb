@@ -5,6 +5,8 @@ class SearchFile < ApplicationRecord
 
   enum status: { initialized: 0, running: 1, completed: 2, failed: 3 }
 
+  validates_presence_of :file_name, :file_path
+
   private
 
   def start_search_worker

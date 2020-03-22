@@ -10,6 +10,10 @@ module FileServices
       @user = user
     end
 
+    def self.perform(params, user)
+      new(params, user).perform
+    end
+
     def perform
       begin
         check_file
@@ -30,7 +34,7 @@ module FileServices
     end
 
     def save_file_entry
-      file_path = FileServices::Uploader.new(@file, upload_path).upload
+      file_path = FileServices::Uploader.perform(@file, upload_path)
 
       @user.search_files.create!(file_path: file_path, file_name: @file.original_filename, status: 'initialized')
     end

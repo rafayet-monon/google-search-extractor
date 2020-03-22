@@ -31,6 +31,7 @@ end
 group :development, :test do
   gem 'brakeman', require: false # A static analysis security vulnerability scanner for Ruby on Rails applications
   gem 'bullet' # help to kill N+1 queries and unused eager loading
+  gem 'factory_bot_rails'
   gem 'listen', '3.1.5' # Listens to file modifications
   gem 'pry-byebug' # Step by step debugging and stack navigation in Pry
   gem 'pry-rails' # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
@@ -40,14 +41,11 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara', '>= 2.15' # Integration testing
   gem 'database_cleaner' # Use Database Cleaner
-  gem 'json_matchers' # Validate the JSON returned by your Rails JSON APIs
   gem 'rspec-rails', '>=4.0.0.beta2' # Rails testing engine
   gem 'rspec-retry' # Retry randomly failing rspec example.
   gem 'shoulda-matchers' # Tests common Rails functionalities
   gem 'simplecov', require: false # code coverage analysis tool for Ruby
-  gem 'timecop' # Gem for time travel
   gem 'vcr' # Gem for recording test suite's HTTP interactions
   gem 'webdrivers' # Run Selenium tests more easily with automatic installation and updates for all supported webdrivers
   gem 'webmock' # Library for stubbing and setting expectations on HTTP requests in Ruby
