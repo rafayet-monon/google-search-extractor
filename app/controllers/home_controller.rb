@@ -1,11 +1,13 @@
 class HomeController < ApplicationController
   include Pagy::Backend
 
+  # root page that shows the report of search results
   def index
-    results      = ReportService.new(params, current_user).perform
-    @pagy, @data = pagy(results.data)
+    results      = ReportService.perform(params, current_user)
+    @pagy, @data = pagy(results.data) # paginate using pagy gem.
 
     respond_to do |format|
+      # check for error attribute in results object
       if results.error.blank?
         format.html
       else

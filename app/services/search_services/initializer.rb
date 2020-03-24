@@ -5,20 +5,21 @@ module SearchServices
       @file    = file
     end
 
-    def perform
-      return if search_executed
+    # calls the instance method perform.
+    def self.perform(keyword, file)
+      new(keyword, file).perform
+    end
 
+    # makes the process sleep for a random time before making a search.
+    # saves the search result to database.
+    def perform
       sleep rand(5..15)
-      result = SearchServices::Extractor.new(@keyword).perform
+      result = SearchServices::GoogleExtractor.perform(@keyword)
 
       save_result(result)
     end
 
     private
-
-    def search_executed
-      SearchResult.where(key: @keyword, search_file_id: @file.id).present?
-    end
 
     def save_result(result)
       @file.search_results.create(
