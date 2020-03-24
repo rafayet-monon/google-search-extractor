@@ -5,10 +5,13 @@ module SearchServices
       @file    = file
     end
 
+    # calls the instance method perform.
     def self.perform(keyword, file)
       new(keyword, file).perform
     end
 
+    # makes the process sleep for a random time before making a search.
+    # saves the search result to database.
     def perform
       sleep rand(5..15)
       result = SearchServices::GoogleExtractor.perform(@keyword)
