@@ -29,8 +29,8 @@ module SearchServices
 
     # open the search using selenium headless firefox.
     def search_google
-      options = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
-      driver  = Selenium::WebDriver.for(:firefox, options: options)
+      options = Selenium::WebDriver::Chrome::Options.new(args: ['-headless'])
+      driver  = Selenium::WebDriver.for(:chrome, options: options)
       driver.get "https://www.google.com/search?q=#{@keyword}"
 
       driver
