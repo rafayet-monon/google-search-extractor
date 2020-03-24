@@ -7,6 +7,10 @@ class SearchFile < ApplicationRecord
 
   validates_presence_of :file_name, :file_path
 
+  def file_full_path
+    Rails.root.to_s + file_path.to_s
+  end
+
   private
 
   def start_search_worker

@@ -43,7 +43,6 @@ end
 group :test do
   gem 'database_cleaner' # Use Database Cleaner
   gem 'rspec-rails', '>=4.0.0.beta2' # Rails testing engine
-  gem 'rspec-retry' # Retry randomly failing rspec example.
   gem 'shoulda-matchers' # Tests common Rails functionalities
   gem 'simplecov', require: false # code coverage analysis tool for Ruby
   gem 'vcr' # Gem for recording test suite's HTTP interactions

@@ -198,8 +198,6 @@ GEM
       rspec-expectations (~> 3.9)
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
-    rspec-retry (0.6.2)
-      rspec-core (> 3.3)
     rspec-support (3.9.2)
     rubocop (0.80.1)
       jaro_winkler (~> 1.5.1)
@@ -303,7 +301,6 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.1)
   rspec-rails (>= 4.0.0.beta2)
-  rspec-retry
   rubocop
   rubocop-rails
   sass-rails (>= 6)

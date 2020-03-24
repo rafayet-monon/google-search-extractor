@@ -10,8 +10,6 @@ module SearchServices
     end
 
     def perform
-      return if search_executed
-
       sleep rand(5..15)
       result = SearchServices::GoogleExtractor.perform(@keyword)
 
@@ -19,10 +17,6 @@ module SearchServices
     end
 
     private
-
-    def search_executed
-      SearchResult.where(key: @keyword, search_file_id: @file.id).present?
-    end
 
     def save_result(result)
       @file.search_results.create(

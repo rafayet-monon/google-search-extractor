@@ -1,6 +1,7 @@
 class SearchFilesController < ApplicationController
 
   # GET /search_files/new
+  # Opens up a modal with form to upload a CSV file.
   def new
     @search_file = SearchFile.new
 
@@ -8,6 +9,9 @@ class SearchFilesController < ApplicationController
   end
 
   # POST /search_files
+  # Create a file record and uploads the file to server.
+  # After creating the record a ActiveRecord callback is used to
+  # start a worker that processes the keywords in it.
   def create
     @search_file = FileServices::Initializer.perform(search_file_params, current_user)
 
