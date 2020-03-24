@@ -31,17 +31,14 @@ Using [Bundler](https://github.com/bundler/bundler) and [Yarn](https://github.co
 
 ```shell
 bundle && yarn
-```
+`````
 
-### Set Master.key
+### Set Credentials
 
 Using rails credentials.yml.enc and master.key[(blog for details)](https://blog.eq8.eu/til/rails-52-credentials-tricks.html).
-`secret key` will be provided through email. Create a new file named `master.key` in `config` folder. 
-
-You can now edit the `credentials.ym.enc` file using the below command -
-
-`EDITOR='nano' rails credentials:edit`
-
+Use `EDITOR='nano' rails credentials:edit` to create new credentials.
+Sample credentials can be found in `config/sample_credentials.yml`. Edit database and email credentials and paste it to
+`credentials.yml.enc`.
 
 ### Mailer Setup
 
@@ -93,7 +90,7 @@ Demo User Credentials
 email: john_doe@gmail.com
 password: 123123
 ```
-## [Sample CSV File](spec/files/keyword_valid.csv)
+## [Sample CSV File](https://drive.google.com/open?id=19yR83H3uvOBZE6tO4400LSetQGilIKsF)
 ## Screenshots
 Signup Page
 ![signup](public/screenshots/1.png)
