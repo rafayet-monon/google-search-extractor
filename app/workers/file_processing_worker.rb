@@ -8,18 +8,12 @@ class FileProcessingWorker
   end
 
   def perform(search_file_id)
-    begin
-      @search_file = SearchFile.find(search_file_id)
-      @search_file.running!
-      keywords = parse_file(file)
-      keywords.each { |keyword| SearchServices::Initializer.new(keyword, @search_file).perform }
+    @search_file = SearchFile.find(search_file_id)
+    @search_file.running!
+    keywords = parse_file(@search_file.file_full_path)
+    keywords.each { |keyword| SearchServices::Initializer.perform(keyword, @search_file) }
 
-      @search_file.completed!
-    rescue CSV::MalformedCSVError
-      @search_file.failed!
-
-      true
-    end
+    @search_file.tap(&:completed!)
   end
 
   private
@@ -30,9 +24,5 @@ class FileProcessingWorker
     csv.each { |row| keywords_rows << row }
 
     keywords_rows.flatten.compact
-  end
-
-  def file
-    Rails.root.to_s + @search_file.file_path.to_s
   end
 end

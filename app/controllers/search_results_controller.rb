@@ -5,7 +5,7 @@ class SearchResultsController < ApplicationController
   def show
     @html = @search_result.html
     respond_to do |format|
-      format.html { render :layout => false } # your-action.html.erb
+      format.html { render layout: false }
     end
   end
 
