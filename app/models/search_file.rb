@@ -16,6 +16,10 @@ class SearchFile < ApplicationRecord
 
   # start file processing worker.
   def start_search_worker
-    FileProcessingWorker.perform_async(id)
+    if Rails.application.credentials.dig(:heroku, Rails.env.to_sym).present?
+      FileProcessingWorker.new.perform(id)
+    else
+      FileProcessingWorker.perform_async(id)
+    end
   end
 end
