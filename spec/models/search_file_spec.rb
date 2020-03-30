@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe SearchFile, type: :model do
   let(:file) { fixture_file_upload('spec/files/keyword_valid.csv', 'text/csv') }
   let(:upload_path) { Rails.root.join('spec', 'files') }
+  let(:search_result) { FactoryBot.create(:search_result) }
 
   context 'When SearchFile is created' do
     it { should validate_presence_of(:file_path) }
@@ -23,6 +24,14 @@ RSpec.describe SearchFile, type: :model do
       expect(full_path).to exist
 
       File.delete(full_path)
+    end
+  end
+
+  context 'when SearchFile id deleted' do
+    it 'is expected to destroy associated search results' do
+      SearchFile.find(search_result.search_file_id).destroy
+
+      expect { search_result.reload }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end
