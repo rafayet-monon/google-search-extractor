@@ -5,7 +5,7 @@ class SearchFilesController < ApplicationController
   def new
     @search_file = SearchFile.new
 
-    respond_to :js
+    respond_to :html
   end
 
   # POST /search_files
@@ -17,9 +17,10 @@ class SearchFilesController < ApplicationController
 
     respond_to do |format|
       if @search_file.error.blank?
-        return redirect_to root_path, notice: 'Upload Successful. Report will be displayed shortly.'
+        format.html { redirect_to root_path, notice: 'Upload Successful. Report will be displayed shortly.' }
       else
-        format.js
+        @new_search_file = SearchFile.new
+        format.html { redirect_to new_search_file_path, alert: @search_file.error }
       end
     end
   end
