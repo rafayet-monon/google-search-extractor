@@ -4,8 +4,6 @@ class SearchFilesController < ApplicationController
   # Opens up a modal with form to upload a CSV file.
   def new
     @search_file = SearchFile.new
-
-    respond_to :html
   end
 
   # POST /search_files
