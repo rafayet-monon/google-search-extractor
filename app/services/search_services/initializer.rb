@@ -14,9 +14,9 @@ module SearchServices
     # saves the search result to database.
     def perform
       sleep rand(5..15)
-      result = SearchServices::GoogleExtractor.perform(@keyword)
+      search = SearchServices::GoogleExtractor.perform(@keyword)
 
-      save_result(result)
+      save_result(search.result)
     end
 
     private

@@ -14,7 +14,7 @@ class SearchFilesController < ApplicationController
     @search_file = FileServices::Initializer.perform(search_file_params, current_user)
 
     respond_to do |format|
-      if @search_file.error.blank?
+      if @search_file.success?
         format.html { redirect_to root_path, notice: 'Upload Successful. Report will be displayed shortly.' }
       else
         @new_search_file = SearchFile.new

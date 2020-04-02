@@ -1,41 +1,32 @@
 class ReportService
+  include ServiceNakama
 
   InvalidDateRange = Class.new(StandardError)
-
-  attr_reader :data, :error
 
   def initialize(params, user)
     @params = params
     @user   = user
   end
 
-  # calls the perform instance method.
-  def self.perform(params, user)
-    new(params, user).perform
-  end
-
   # retrieving the search results and filter by date if @params[:daterange] present.
   def perform
-    begin
-      @data = SearchResult.joins(search_file: :user)
-                          .where('users.id = ?', @user.id)
-                          .select(:id, :key, :links, :ad_words, :results)
-                          .order('key')
-      filter_by_date if @params[:daterange].present? # filter by  date
-    rescue InvalidDateRange
-      @error = 'Select a valid daterange!'
-    end
+    data = SearchResult.joins(search_file: :user)
+             .where('users.id = ?', @user.id)
+             .select(:id, :key, :links, :ad_words, :results)
+             .order('key')
+    data = filter_by_date(data) if @params[:daterange].present? # filter by  date
 
-    self # returns ReportService with readable data and error.
+    data # returns ReportService with readable data and error.
   end
+
 
   private
 
   # filter the query byr date.
-  def filter_by_date
+  def filter_by_date(data)
     start_date, end_date = parse_daterange
 
-    @data = @data.where('search_files.created_at BETWEEN ? AND ?', start_date, end_date)
+    data.where('search_files.created_at BETWEEN ? AND ?', start_date, end_date)
   end
 
   # parses the daterange parameter to start_date and end_date
@@ -50,10 +41,14 @@ class ReportService
   # checks if date  string is valid by checking a regex and formatting date.
   # raise InvalidDateRange if something goes wrong.
   def valid_date?(string)
-    raise InvalidDateRange if %r{(\d{4}/\d{2}/\d{2})}.match(string).blank?
+    raise_invalid_date_range if %r{(\d{4}/\d{2}/\d{2})}.match(string).blank?
 
     Date.strptime(string, '%Y/%m/%d')
   rescue ArgumentError
-    raise InvalidDateRange
+    raise_invalid_date_range
+  end
+
+  def raise_invalid_date_range
+    raise InvalidDateRange, 'Select a valid daterange!'
   end
 end
