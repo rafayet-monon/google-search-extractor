@@ -1,13 +1,10 @@
 module FileServices
   class Uploader
+    include ServiceNakama
+
     def initialize(file, upload_path)
       @file = file
       @path = upload_path
-    end
-
-    # calls the instance method perform.
-    def self.perform(file, upload_path)
-      new(file, upload_path).perform
     end
 
     # uploads and return the file path to save to database

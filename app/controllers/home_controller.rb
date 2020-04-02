@@ -3,15 +3,15 @@ class HomeController < ApplicationController
 
   # root page that shows the report of search results
   def index
-    results      = ReportService.perform(params, current_user)
-    @pagy, @data = pagy(results.data) # paginate using pagy gem.
+    report       = ReportService.perform(params, current_user)
+    @pagy, @data = pagy(report.result) # paginate using pagy gem.
 
     respond_to do |format|
       # check for error attribute in results object
-      if results.error.blank?
+      if report.success?
         format.html
       else
-        format.html { redirect_to root_path, alert: results.error }
+        format.html { redirect_to root_path, alert: report.error }
       end
     end
   end

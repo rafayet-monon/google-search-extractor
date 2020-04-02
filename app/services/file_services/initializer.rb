@@ -2,6 +2,7 @@ require 'csv'
 
 module FileServices
   class Initializer
+    include ServiceNakama
 
     InvalidFileError = Class.new(StandardError)
     InvalidCSVError  = Class.new(StandardError)
@@ -13,23 +14,10 @@ module FileServices
       @user = user
     end
 
-    # calls the instance method perform.
-    def self.perform(params, user)
-      new(params, user).perform
-    end
-
     # checks file and saves it.
     def perform
-      begin
-        check_file # checks if the file uploaded is valid
-        save_file_entry # Uploads the file to the server and saves a entry to database
-      rescue InvalidFileError, InvalidCSVError => e
-        @error = e.message
-      rescue StandardError
-        @error = 'Something went wrong. Please try again!'
-      end
-
-      self # returns the self object with readable error if present.
+      check_file # checks if the file uploaded is valid
+      save_file_entry # Uploads the file to the server and saves a entry to database
     end
 
     private
@@ -57,7 +45,7 @@ module FileServices
 
     # uploads and saves the file to database with a status.
     def save_file_entry
-      @user.search_files.create!(file_path: uploaded_file_path, file_name: @file.original_filename, status: 'initialized')
+      @user.search_files.create!(file_path: uploaded_file_path.result, file_name: @file.original_filename, status: 'initialized')
     end
 
     # uploads the file to server

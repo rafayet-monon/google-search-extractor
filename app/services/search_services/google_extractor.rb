@@ -1,16 +1,12 @@
 module SearchServices
   class GoogleExtractor
     require 'selenium-webdriver'
+    include ServiceNakama
 
     attr_reader :ad_words, :links, :results, :html
 
     def initialize(keyword)
       @keyword = keyword
-    end
-
-    # calls the instance method perform.
-    def self.perform(keyword)
-      new(keyword).perform
     end
 
     # search for keyword in google and assign attributes.
